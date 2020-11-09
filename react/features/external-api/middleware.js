@@ -174,7 +174,6 @@ MiddlewareRegistry.register(store => next => action => {
         APP.API.notifyCtrlChanged(action.participant.id, action);
         break;
     case SET_EMAIL:
-        console.log('SET_EMAIL: ', action);
         APP.API.notifyEmailChanged(action.participant.id, action);
         break;
 

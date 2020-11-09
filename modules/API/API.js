@@ -702,7 +702,6 @@ class API {
     notifyEmailChanged(
             id: string,
             { email }: Object) {
-        console.log('notifyEmailChanged ', email);
         this._sendEvent({
             name: 'email-change',
             email,

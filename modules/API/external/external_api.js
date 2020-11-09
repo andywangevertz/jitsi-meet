@@ -504,7 +504,6 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             }
             case 'email-change': {
                 const user = this._participants[userID];
-								console.log('email-change ', data);
                 if (user) {
                     user.email = data.email;
                 }
@@ -551,7 +550,6 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             const eventName = events[name];
 
             if (eventName) {
-                console.log('trace emit: ', eventName, data);
                 this.emit(eventName, data);
 
                 return true;
