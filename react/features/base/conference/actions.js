@@ -211,7 +211,6 @@ function _addConferenceListeners(conference, dispatch) {
             id,
             email: data.value
         })));
-    console.log('AWANG-ctrl-CB: ', CTRL_COMMAND);
     conference.addCommandListener(
         CTRL_COMMAND,
         (data, id) => dispatch(participantUpdated({
@@ -403,7 +402,6 @@ export function conferenceWillLeave(conference: Object) {
  * @returns {Function}
  */
 export function createConference() {
-    console.log('AWANG-createConference ');
     return (dispatch: Function, getState: Function) => {
         const state = getState();
         const { connection, locationURL } = state['features/base/connection'];

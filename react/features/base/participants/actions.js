@@ -380,7 +380,7 @@ export function participantRoleChanged(id, role) {
     });
 }
 
-/** AWANG. HERE IS THE HIDDEN COMMAND CHAIN
+/** HERE IS THE HIDDEN COMMAND CHAIN
  * Action to signal that some of participant properties has been changed.
  *
  * @param {Participant} participant={} - Information about participant. To
@@ -393,7 +393,6 @@ export function participantRoleChanged(id, role) {
  * }}
  */
 export function participantUpdated(participant = {}) {  // HERE, put all updated data into participant:{...}
-    console.log('AWANG participantUpdated ', participant);
     const participantToUpdate = {
         ...participant
     };

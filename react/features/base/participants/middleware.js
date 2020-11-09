@@ -399,7 +399,6 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
     const result = next(action);
 
     const { disableThirdPartyRequests } = getState()['features/base/config'];
-    console.log('AWANG disableThirdPartyRequests:', disableThirdPartyRequests, ' CTRL: ', ctrl, ' action:', action);
     if (!disableThirdPartyRequests && (avatarURL || email || ctrl || id || name)) {
         const participantId = !id && local ? getLocalParticipant(getState()).id : id;
         const updatedParticipant = getParticipantById(getState(), participantId);
@@ -407,7 +406,6 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
         if ( ctrl ) {
 					dispatch(setCtrlData(participantId, ctrl));
         } else if ( email ) {
-          console.log('AWANG updatedParticipant ', updatedParticipant);
           if (typeof APP === 'object') {
 						dispatch(setEmailData(participantId, email));
 					}
