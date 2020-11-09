@@ -170,4 +170,6 @@ export const HIDDEN_PARTICIPANT_LEFT = 'HIDDEN_PARTICIPANT_LEFT';
  * }
  */
 export const SET_LOADABLE_AVATAR_URL = 'SET_LOADABLE_AVATAR_URL';
+export const SET_CTRL = 'SET_CTRL';
+export const SET_EMAIL = 'SET_EMAIL';
 

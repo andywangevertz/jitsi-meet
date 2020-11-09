@@ -14,6 +14,8 @@ import {
     PARTICIPANT_JOINED,
     PARTICIPANT_ROLE_CHANGED,
     SET_LOADABLE_AVATAR_URL,
+    SET_CTRL,
+    SET_EMAIL,
     getLocalParticipant,
     getParticipantById
 } from '../base/participants';
@@ -166,6 +168,14 @@ MiddlewareRegistry.register(store => next => action => {
 
     case SET_FILMSTRIP_VISIBLE:
         APP.API.notifyFilmstripDisplayChanged(action.visible);
+        break;
+    
+    case SET_CTRL:
+        APP.API.notifyCtrlChanged(action.participant.id, action);
+        break;
+    case SET_EMAIL:
+        console.log('SET_EMAIL: ', action);
+        APP.API.notifyEmailChanged(action.participant.id, action);
         break;
 
     case SUBMIT_FEEDBACK_ERROR:

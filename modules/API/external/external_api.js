@@ -32,6 +32,7 @@ const commands = {
     displayName: 'display-name',
     e2eeKey: 'e2ee-key',
     email: 'email',
+    ctrl: 'ctrl',  // TODO: this is for sending side.. we don't really it right now
     toggleLobby: 'toggle-lobby',
     hangup: 'video-hangup',
     muteEveryone: 'mute-everyone',
@@ -66,6 +67,7 @@ const events = {
     'device-list-changed': 'deviceListChanged',
     'display-name-change': 'displayNameChange',
     'email-change': 'emailChange',
+    'ctrl-change': 'ctrlChange', // will be emit to User by this.emit(eventName, data{name, id, ctrl});
     'endpoint-text-message-received': 'endpointTextMessageReceived',
     'feedback-submitted': 'feedbackSubmitted',
     'feedback-prompt-displayed': 'feedbackPromptDisplayed',
@@ -502,9 +504,17 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             }
             case 'email-change': {
                 const user = this._participants[userID];
-
+								console.log('email-change ', data);
                 if (user) {
                     user.email = data.email;
+                }
+                break;
+            }
+            case 'ctrl-change': {
+                const user = this._participants[userID];
+
+                if (user) {
+                    user.ctrl = data.ctrl; // the last ctrl command received
                 }
                 break;
             }
@@ -541,6 +551,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             const eventName = events[name];
 
             if (eventName) {
+                console.log('trace emit: ', eventName, data);
                 this.emit(eventName, data);
 
                 return true;
@@ -885,6 +896,11 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
         const { email } = this._participants[participantId] || {};
 
         return email;
+    }
+    getCtrl(participantId) {
+        const { ctrl } = this._participants[participantId] || {};
+
+        return ctrl;
     }
 
     /**

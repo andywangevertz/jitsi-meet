@@ -53,6 +53,7 @@ import {
 import {
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
+    CTRL_COMMAND,
     JITSI_CONFERENCE_URL_KEY
 } from './constants';
 import {
@@ -209,6 +210,14 @@ function _addConferenceListeners(conference, dispatch) {
             conference,
             id,
             email: data.value
+        })));
+    console.log('AWANG-ctrl-CB: ', CTRL_COMMAND);
+    conference.addCommandListener(
+        CTRL_COMMAND,
+        (data, id) => dispatch(participantUpdated({
+            conference,
+            id,
+            ctrl: data.value
         })));
 }
 
@@ -394,6 +403,7 @@ export function conferenceWillLeave(conference: Object) {
  * @returns {Function}
  */
 export function createConference() {
+    console.log('AWANG-createConference ');
     return (dispatch: Function, getState: Function) => {
         const state = getState();
         const { connection, locationURL } = state['features/base/connection'];

@@ -11,6 +11,7 @@ export const AVATAR_URL_COMMAND = 'avatar-url';
  * @type {string}
  */
 export const EMAIL_COMMAND = 'email';
+export const CTRL_COMMAND = 'ctrl';
 
 /**
  * The name of the {@code JitsiConference} property which identifies the URL of

@@ -30,6 +30,8 @@ import {
     localParticipantLeft,
     participantLeft,
     participantUpdated,
+    setCtrlData,
+    setEmailData,
     setLoadableAvatarUrl
 } from './actions';
 import {
@@ -135,6 +137,7 @@ MiddlewareRegistry.register(store => next => action => {
         break;
 
     case PARTICIPANT_UPDATED:
+        // HIDDEN COMMAND CHAIN
         return _participantJoinedOrUpdated(store, next, action);
 
     case TRACK_ADDED:
@@ -366,7 +369,7 @@ function _maybePlaySounds({ getState, dispatch }, action) {
  * @returns {Object} The value returned by {@code next(action)}.
  */
 function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
-    const { participant: { avatarURL, e2eeEnabled, email, id, local, name, raisedHand } } = action;
+    const { participant: { avatarURL, e2eeEnabled, email, ctrl, id, local, name, raisedHand } } = action;
 
     // Send an external update of the local participant's raised hand state
     // if a new raised hand state is defined in the action.
@@ -396,11 +399,19 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
     const result = next(action);
 
     const { disableThirdPartyRequests } = getState()['features/base/config'];
-
-    if (!disableThirdPartyRequests && (avatarURL || email || id || name)) {
+    console.log('AWANG disableThirdPartyRequests:', disableThirdPartyRequests, ' CTRL: ', ctrl, ' action:', action);
+    if (!disableThirdPartyRequests && (avatarURL || email || ctrl || id || name)) {
         const participantId = !id && local ? getLocalParticipant(getState()).id : id;
         const updatedParticipant = getParticipantById(getState(), participantId);
 
+        if ( ctrl ) {
+					dispatch(setCtrlData(participantId, ctrl));
+        } else if ( email ) {
+          console.log('AWANG updatedParticipant ', updatedParticipant);
+          if (typeof APP === 'object') {
+						dispatch(setEmailData(participantId, email));
+					}
+        } else 
         getFirstLoadableAvatarUrl(updatedParticipant)
             .then(url => {
                 dispatch(setLoadableAvatarUrl(participantId, url));

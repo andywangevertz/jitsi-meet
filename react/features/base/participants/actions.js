@@ -14,7 +14,9 @@ import {
     PARTICIPANT_LEFT,
     PARTICIPANT_UPDATED,
     PIN_PARTICIPANT,
-    SET_LOADABLE_AVATAR_URL
+    SET_LOADABLE_AVATAR_URL,
+    SET_CTRL,
+    SET_EMAIL
 } from './actionTypes';
 import {
     getLocalParticipant,
@@ -378,7 +380,7 @@ export function participantRoleChanged(id, role) {
     });
 }
 
-/**
+/** AWANG. HERE IS THE HIDDEN COMMAND CHAIN
  * Action to signal that some of participant properties has been changed.
  *
  * @param {Participant} participant={} - Information about participant. To
@@ -390,7 +392,8 @@ export function participantRoleChanged(id, role) {
  *     participant: Participant
  * }}
  */
-export function participantUpdated(participant = {}) {
+export function participantUpdated(participant = {}) {  // HERE, put all updated data into participant:{...}
+    console.log('AWANG participantUpdated ', participant);
     const participantToUpdate = {
         ...participant
     };
@@ -496,6 +499,27 @@ export function setLoadableAvatarUrl(participantId, url) {
         participant: {
             id: participantId,
             loadableAvatarUrl: url
+        }
+    };
+}
+
+export function setCtrlData(participantId, ctrl) {
+    return {
+        type: SET_CTRL,
+        ctrl: ctrl,
+        participant: {
+            id: participantId,
+            //ctrl: ctrl,
+        }
+    };
+}
+export function setEmailData(participantId, email) {
+    return {
+        type: SET_EMAIL,
+        email: email,
+        participant: {
+            id: participantId,
+            //email: email,
         }
     };
 }

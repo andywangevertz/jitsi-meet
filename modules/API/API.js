@@ -702,9 +702,19 @@ class API {
     notifyEmailChanged(
             id: string,
             { email }: Object) {
+        console.log('notifyEmailChanged ', email);
         this._sendEvent({
             name: 'email-change',
             email,
+            id
+        });
+    }
+    notifyCtrlChanged(
+            id: string,
+            { ctrl }: Object) {
+        this._sendEvent({
+            name: 'ctrl-change',
+            ctrl,
             id
         });
     }

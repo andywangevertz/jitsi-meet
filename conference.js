@@ -26,6 +26,7 @@ import {
 import {
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
+    CTRL_COMMAND,
     authStatusChanged,
     commonUserJoinedHandling,
     commonUserLeftHandling,
@@ -173,6 +174,7 @@ const commands = {
     AVATAR_URL: AVATAR_URL_COMMAND,
     CUSTOM_ROLE: 'custom-role',
     EMAIL: EMAIL_COMMAND,
+    CTRL: CTRL_COMMAND,
     ETHERPAD: 'etherpad',
     SHARED_VIDEO: 'shared-video'
 };
@@ -2095,6 +2097,13 @@ export default {
                 conference: room,
                 id: from,
                 email: data.value
+            }));
+        });
+        room.addCommandListener(this.commands.defaults.CTRL, (data, from) => {
+            APP.store.dispatch(participantUpdated({
+                conference: room,
+                id: from,
+                ctrl: data.value
             }));
         });
 

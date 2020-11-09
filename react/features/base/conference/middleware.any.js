@@ -81,6 +81,7 @@ MiddlewareRegistry.register(store => next => action => {
         break;
 
     case PARTICIPANT_UPDATED:
+        // AWANG HIDDEN COMMAND CHAIN
         return _updateLocalParticipantInConference(store, next, action);
 
     case PIN_PARTICIPANT:
