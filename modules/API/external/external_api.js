@@ -526,6 +526,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
                 break;
             }
             case 'on-stage-participant-changed':
+								console.log('on-stage-participant-changed:', userID);
                 this._onStageParticipant = userID;
                 this.emit('largeVideoChanged');
                 break;

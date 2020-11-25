@@ -257,7 +257,8 @@ export function participantJoined(participant) {
         throw Error(
             'A remote participant must be associated with a JitsiConference!');
     }
-
+		
+		console.log('participantJoined: ', participant);
     return (dispatch, getState) => {
         // A remote participant is only expected to join in a joined or joining
         // conference. The following check is really necessary because a

@@ -63,6 +63,7 @@ export function selectParticipantInLargeVideo(participant: ?string) {
         const largeVideo = state['features/large-video'];
 
         if (participantId !== largeVideo.participantId) {
+				console.log('selectParticipantInLargeVideo SELECT_LARGE_VIDEO_PARTICIPANT', participantId, largeVideo); 
             dispatch({
                 type: SELECT_LARGE_VIDEO_PARTICIPANT,
                 participantId
@@ -122,7 +123,7 @@ function _electParticipantInLargeVideo(state) {
     const participants = state['features/base/participants'];
     let participant = participants.find(p => p.pinned);
     let id = participant && participant.id;
-
+	  console.log('_electParticipantInLargeVideo pined:', id);	
     if (!id) {
         // 2. No participant is pinned so get the dominant speaker. But the
         //    local participant won't be displayed in LargeVideo even if she is
@@ -130,6 +131,7 @@ function _electParticipantInLargeVideo(state) {
         participant = participants.find(p => p.dominantSpeaker && !p.local);
         id = participant && participant.id;
 
+	  		console.log('_electParticipantInLargeVideo dominantSpeaker:', id);	
         if (!id) {
             // 3. There is no dominant speaker so select the remote participant
             //    who last had visible video.
@@ -138,6 +140,7 @@ function _electParticipantInLargeVideo(state) {
 
             id = videoTrack && videoTrack.participantId;
 
+	  				console.log('_electParticipantInLargeVideo _electLastVisibleRemoteVideo:', id);	
             if (!id) {
                 // 4. It's possible there is no participant with visible video.
                 //    This can happen for a number of reasons:

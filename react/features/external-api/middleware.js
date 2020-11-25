@@ -147,7 +147,8 @@ MiddlewareRegistry.register(store => next => action => {
 
     case PARTICIPANT_JOINED: {
         const { participant } = action;
-        const { id, local, name } = participant;
+				console.log('PARTICIPANT_JOINED ', participant);
+        const { id, local, name, state, role } = participant;
 
         // The version of external api outside of middleware did not emit
         // the local participant being created.
@@ -155,7 +156,8 @@ MiddlewareRegistry.register(store => next => action => {
             APP.API.notifyUserJoined(id, {
                 displayName: name,
                 formattedDisplayName: appendSuffix(
-                    name || interfaceConfig.DEFAULT_REMOTE_DISPLAY_NAME)
+                    name || interfaceConfig.DEFAULT_REMOTE_DISPLAY_NAME),
+								state:state, role:role
             });
         }
 
